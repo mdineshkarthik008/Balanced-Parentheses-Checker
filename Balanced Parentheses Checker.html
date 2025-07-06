@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Balanced Parentheses Checker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #eef2f7;
+      padding: 2rem;
+    }
+    h2 {
+      color: #333;
+    }
+    input[type="text"] {
+      width: 300px;
+      padding: 0.5rem;
+      font-size: 1rem;
+    }
+    button {
+      padding: 0.5rem 1rem;
+      margin-left: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 1rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Balanced Parentheses Checker</h2>
+
+  <input type="text" id="inputString" placeholder="Enter brackets like (){}[]">
+  <button onclick="checkParentheses()">Check</button>
+
+  <div id="result" class="result"></div>
+
+  <script>
+    function isValid(s) {
+      const stack = [];
+      for (let c of s) {
+        if (c === '(') stack.push(')');
+        else if (c === '{') stack.push('}');
+        else if (c === '[') stack.push(']');
+        else {
+          if (stack.length === 0 || stack.pop() !== c) return false;
+        }
+      }
+      return stack.length === 0;
+    }
+
+    function checkParentheses() {
+      const input = document.getElementById('inputString').value.trim();
+      const resultDiv = document.getElementById('result');
+
+      if (input === "") {
+        resultDiv.textContent = "⚠️ Please enter a string of brackets.";
+        resultDiv.style.color = "orange";
+        return;
+      }
+
+      if (isValid(input)) {
+        resultDiv.textContent = "✅ Balanced: The parentheses are valid.";
+        resultDiv.style.color = "green";
+      } else {
+        resultDiv.textContent = "❌ Not Balanced: The parentheses are invalid.";
+        resultDiv.style.color = "red";
+      }
+    }
+  </script>
+
+</body>
+</html>
